@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Morgan | Portfolio</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --muted: #616161;
+      --paper: #fbfaf6;
+      --line: rgba(23, 23, 23, 0.12);
+      --green: #2f7d5c;
+      --coral: #d45b45;
+      --gold: #d99a28;
+      --blue: #3f73b8;
+      --shadow: 0 18px 50px rgba(23, 23, 23, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 16% 12%, rgba(217, 154, 40, 0.16), transparent 28rem),
+        radial-gradient(circle at 92% 8%, rgba(63, 115, 184, 0.14), transparent 30rem),
+        var(--paper);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 250, 246, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--green);
+      box-shadow: 0 8px 22px rgba(47, 125, 92, 0.14);
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 650;
+    }
+
+    .links a {
+      position: relative;
+    }
+
+    .links a::after {
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 100%;
+      height: 2px;
+      content: "";
+      background: var(--coral);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 220ms ease;
+    }
+
+    .links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      align-items: center;
+      gap: 48px;
+      min-height: calc(100vh - 72px);
+      padding: 70px 0 52px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(47, 125, 92, 0.45);
+      animation: pulse 1.8s infinite;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 7.6rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--coral);
+    }
+
+    .intro {
+      max-width: 590px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 18px;
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      font-weight: 800;
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    }
+
+    .button.primary {
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(23, 23, 23, 0.16);
+    }
+
+    .portrait {
+      position: relative;
+      min-height: 540px;
+      isolation: isolate;
+    }
+
+    .portrait-card {
+      position: absolute;
+      inset: 4% 9% 8% 12%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+      transform: rotate(2deg);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .portrait-card::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(140deg, rgba(47, 125, 92, 0.82), rgba(63, 115, 184, 0.62)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='900' viewBox='0 0 700 900'%3E%3Crect width='700' height='900' fill='%23f4efe4'/%3E%3Ccircle cx='350' cy='250' r='122' fill='%23171717'/%3E%3Cpath d='M136 758c33-181 128-286 214-286s181 105 214 286' fill='%23d45b45'/%3E%3Cpath d='M225 265c12-91 71-145 139-145 90 0 138 66 138 152 0 101-61 185-139 185s-151-84-138-192z' fill='%23f1c7a8'/%3E%3Cpath d='M218 244c32-92 107-132 172-105 84 34 112 112 93 190-67-8-129-38-181-91-16 33-42 57-84 72z' fill='%23171717'/%3E%3Ccircle cx='302' cy='306' r='10' fill='%23171717'/%3E%3Ccircle cx='414' cy='306' r='10' fill='%23171717'/%3E%3Cpath d='M320 382c34 28 70 28 107 0' stroke='%23171717' stroke-width='15' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+      background-position: center;
+      background-size: cover;
+      filter: saturate(1.06);
+    }
+
+    .badge {
+      position: absolute;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      width: 118px;
+      height: 118px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 850;
+      text-align: center;
+      box-shadow: 0 16px 40px rgba(23, 23, 23, 0.12);
+      animation: spin 16s linear infinite;
+    }
+
+    .badge.one {
+      top: 32px;
+      right: 4px;
+    }
+
+    .badge.two {
+      bottom: 48px;
+      left: 4px;
+      color: var(--blue);
+      animation-direction: reverse;
+    }
+
+    .section {
+      padding: 86px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 14px 36px rgba(23, 23, 23, 0.08);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+
+    .project-visual {
+      height: 178px;
+      border-bottom: 1px solid var(--line);
+      background: #e8eee9;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project:nth-child(2) .project-visual {
+      background: #f4e7df;
+    }
+
+    .project:nth-child(3) .project-visual {
+      background: #e6ecf6;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 24px 22px auto;
+      height: 118px;
+      border: 10px solid #ffffff;
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(23, 23, 23, 0.15) 20%, transparent 20% 28%, rgba(23, 23, 23, 0.12) 28% 48%, transparent 48%),
+        linear-gradient(135deg, var(--green), var(--gold));
+      box-shadow: 0 16px 32px rgba(23, 23, 23, 0.16);
+      animation: slideGlow 4.5s ease-in-out infinite;
+    }
+
+    .project:nth-child(2) .screen {
+      background:
+        linear-gradient(90deg, rgba(23, 23, 23, 0.12) 16%, transparent 16% 30%, rgba(23, 23, 23, 0.16) 30% 60%, transparent 60%),
+        linear-gradient(135deg, var(--coral), var(--gold));
+      animation-delay: 400ms;
+    }
+
+    .project:nth-child(3) .screen {
+      background:
+        linear-gradient(90deg, rgba(23, 23, 23, 0.14) 14%, transparent 14% 34%, rgba(23, 23, 23, 0.12) 34% 64%, transparent 64%),
+        linear-gradient(135deg, var(--blue), var(--green));
+      animation-delay: 800ms;
+    }
+
+    .project-body {
+      padding: 22px;
+    }
+
+    .project h3 {
+      margin: 0 0 9px;
+      font-size: 1.25rem;
+    }
+
+    .project p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 760;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .stat {
+      min-height: 144px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 12px 30px rgba(23, 23, 23, 0.07);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--coral);
+      font-size: 2.25rem;
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-weight: 680;
+    }
+
+    .copy {
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .skill {
+      padding: 12px 15px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+      font-weight: 800;
+      box-shadow: 0 10px 28px rgba(23, 23, 23, 0.06);
+      transform: translateY(16px);
+      opacity: 0;
+    }
+
+    .contact-band {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--ink);
+      color: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-band p {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    footer {
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .reveal {
+      transform: translateY(28px);
+      opacity: 0;
+      transition: transform 700ms ease, opacity 700ms ease;
+    }
+
+    .reveal.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .skill.visible {
+      animation: popIn 520ms ease forwards;
+    }
+
+    @keyframes pulse {
+      70% {
+        box-shadow: 0 0 0 14px rgba(47, 125, 92, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(47, 125, 92, 0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(2deg);
+      }
+      50% {
+        transform: translateY(-16px) rotate(-1deg);
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes slideGlow {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(10px);
+      }
+    }
+
+    @keyframes popIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .links {
+        display: none;
+      }
+
+      .hero,
+      .about,
+      .contact-band {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        gap: 30px;
+        min-height: auto;
+        padding-top: 56px;
+      }
+
+      .portrait {
+        min-height: 460px;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-head p {
+        margin-top: 16px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: min(100% - 24px, 1120px);
+      }
+
+      .actions,
+      .contact-band {
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .portrait {
+        min-height: 360px;
+      }
+
+      .portrait-card {
+        inset: 3% 7% 10%;
+      }
+
+      .badge {
+        width: 92px;
+        height: 92px;
+        font-size: 0.7rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-band {
+        padding: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="shell nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="Portfolio home">
+        <span class="brand-mark">AM</span>
+        <span>Alex Morgan</span>
+      </a>
+      <div class="links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div class="reveal">
+        <p class="eyebrow"><span class="pulse"></span> Available for freelance work</p>
+        <h1>Creative <span>Developer</span></h1>
+        <p class="intro">
+          I build clean, responsive websites with polished interactions, thoughtful layouts,
+          and smooth details that make the experience feel alive.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="#work">View Projects</a>
+          <a class="button" href="mailto:hello@example.com">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="portrait reveal" aria-label="Illustrated profile portrait">
+        <div class="portrait-card"></div>
+        <div class="badge one">UI<br />Motion</div>
+        <div class="badge two">Web<br />Design</div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="shell">
+        <div class="section-head reveal">
+          <h2>Selected Work</h2>
+          <p>Recent concepts focused on fast interfaces, strong visual hierarchy, and interactive details.</p>
+        </div>
+
+        <div class="work-grid">
+          <article class="project reveal">
+            <div class="project-visual"><div class="screen"></div></div>
+            <div class="project-body">
+              <h3>Studio Dashboard</h3>
+              <p>A crisp admin interface for tracking tasks, deadlines, and project health.</p>
+              <div class="tag-row">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">UI Design</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-visual"><div class="screen"></div></div>
+            <div class="project-body">
+              <h3>Product Landing</h3>
+              <p>A responsive product page with animated sections and clear calls to action.</p>
+              <div class="tag-row">
+                <span class="tag">Animation</span>
+                <span class="tag">Branding</span>
+                <span class="tag">Responsive</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <div class="project-visual"><div class="screen"></div></div>
+            <div class="project-body">
+              <h3>Portfolio System</h3>
+              <p>A personal site template with reusable sections and a refined mobile layout.</p>
+              <div class="tag-row">
+                <span class="tag">JavaScript</span>
+                <span class="tag">UX</span>
+                <span class="tag">Motion</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="shell about">
+        <div class="stats reveal">
+          <div class="stat">
+            <strong>24+</strong>
+            <span>Completed projects</span>
+          </div>
+          <div class="stat">
+            <strong>3</strong>
+            <span>Years building websites</span>
+          </div>
+          <div class="stat">
+            <strong>12</strong>
+            <span>Happy clients</span>
+          </div>
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Responsive layouts</span>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2>About Me</h2>
+          <p class="copy">
+            I enjoy turning ideas into websites that feel simple, useful, and memorable.
+            My focus is front-end development, interaction design, and clean implementation
+            that works well on every screen size.
+          </p>
+          <div class="skills" aria-label="Skills">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Responsive Design</span>
+            <span class="skill">Animations</span>
+            <span class="skill">UI Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="shell">
+        <div class="contact-band reveal">
+          <div>
+            <h2>Let us build something clean.</h2>
+            <p>Have a project, internship, or collaboration in mind? Send a message and let us talk.</p>
+          </div>
+          <a class="button primary" href="mailto:hello@example.com">hello@example.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">Made with HTML, CSS, and a little JavaScript motion.</div>
+  </footer>
+
+  <script>
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal, .skill").forEach((element, index) => {
+      element.style.transitionDelay = `${Math.min(index * 55, 280)}ms`;
+      element.style.animationDelay = `${Math.min(index * 70, 420)}ms`;
+      revealObserver.observe(element);
+    });
+  </script>
+</body>
+</html>
